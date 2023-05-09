@@ -12,7 +12,55 @@ Catalog Error: Scalar Function with name anonymize does not exist!
 require anonymize
 
 # Confirm the extension works
+
+statement ok
+create table test (email varchar)
+
+statement ok
+insert into test values ('pedro@gmail.com'), ('pedro@gmail.com'), ('pedro@duckdblabs.com'), ('mark@hotmail.com'), ('hannes@duckdblabs.com')
+
+statement ok
+set anonymize_seed = 1
+
 query I
+select anonymize(email) from test
+----
+mijlf@gmail.com
+paqbm@gmail.com
+hgzus@duckdblabs.com
+ul23@hotmail.com
+oexx46@duckdblabs.com
+
+statement ok
+insert into test values (NULL)
+
+query I
+select anonymize(email) from test
+----
+mijlf@gmail.com
+paqbm@gmail.com
+hgzus@duckdblabs.com
+ul23@hotmail.com
+oexx46@duckdblabs.com
+NULL
+
+query I
+select anonymize('pedro@duckdblabs.com')
+----
+mijlf@duckdblabs.com
+
+query I
+select anonymize(NULL)
+----
+NULL
+
+query I
+select anonymize(email) from test where email like '%duck%'
+----
+mijlf@duckdblabs.com
+paqbmh@duckdblabs.com
+
+statement error
 SELECT anonymize('Sam');
 ----
-Anonymize Sam 🐥
+This is not a valid email
