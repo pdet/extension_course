@@ -10,4 +10,8 @@ public:
   std::string Name() override;
 };
 
+struct AnonymizeEmail {
+  static void Register(Catalog &catalog, ClientContext &context);
+};
+
 } // namespace duckdb

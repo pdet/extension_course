@@ -23,7 +23,7 @@ statement ok
 set anonymize_seed = 1
 
 query I
-select anonymize(email) from test
+select anonymize_email(email) from test
 ----
 mijlf@gmail.com
 paqbm@gmail.com
@@ -35,7 +35,7 @@ statement ok
 insert into test values (NULL)
 
 query I
-select anonymize(email) from test
+select anonymize_email(email) from test
 ----
 mijlf@gmail.com
 paqbm@gmail.com
@@ -45,22 +45,22 @@ oexx46@duckdblabs.com
 NULL
 
 query I
-select anonymize('pedro@duckdblabs.com')
+select anonymize_email('pedro@duckdblabs.com')
 ----
 mijlf@duckdblabs.com
 
 query I
-select anonymize(NULL)
+select anonymize_email(NULL)
 ----
 NULL
 
 query I
-select anonymize(email) from test where email like '%duck%'
+select anonymize_email(email) from test where email like '%duck%'
 ----
 mijlf@duckdblabs.com
 paqbmh@duckdblabs.com
 
 statement error
-SELECT anonymize('Sam');
+SELECT anonymize_email('Sam');
 ----
 This is not a valid email
