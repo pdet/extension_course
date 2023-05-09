@@ -14,4 +14,8 @@ struct AnonymizeEmail {
   static void Register(Catalog &catalog, ClientContext &context);
 };
 
+struct GenerateData {
+  static void Register(Catalog &catalog, ClientContext &context);
+};
+
 } // namespace duckdb

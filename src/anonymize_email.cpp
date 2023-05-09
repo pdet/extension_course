@@ -39,6 +39,7 @@ void AssignString(string &email, string_t *result, idx_t result_idx,
   memcpy(ptr, new_email.c_str(), len);
   result[result_idx] = string_t(ptr, len);
 }
+
 void AnonymizeScalarFun(duckdb::DataChunk &args, duckdb::ExpressionState &state,
                         duckdb::Vector &result) {
   D_ASSERT(args.ColumnCount() == 1);
@@ -93,6 +94,6 @@ void AnonymizeEmail::Register(Catalog &catalog, ClientContext &context) {
   CreateScalarFunctionInfo anonymize_fun_info(
       ScalarFunction("anonymize_email", {LogicalType::VARCHAR},
                      LogicalType::VARCHAR, AnonymizeScalarFun));
-  catalog.CreateFunction(context, &anonymize_fun_info);
+  catalog.CreateFunction(context, anonymize_fun_info);
 }
 } // namespace duckdb

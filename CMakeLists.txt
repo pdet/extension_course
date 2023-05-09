@@ -7,7 +7,8 @@ set(EXTENSION_NAME ${TARGET_NAME}_extension)
 project(${TARGET_NAME})
 include_directories(src/include)
 
-set(EXTENSION_SOURCES src/anonymize_extension.cpp src/anonymize_email.cpp src/generate_data.cpp)
+set(EXTENSION_SOURCES src/anonymize_extension.cpp src/anonymize_email.cpp
+                      src/generate_data.cpp)
 add_library(${EXTENSION_NAME} STATIC ${EXTENSION_SOURCES})
 
 set(PARAMETERS "-warnings")

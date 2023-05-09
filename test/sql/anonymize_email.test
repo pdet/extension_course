@@ -1,6 +1,6 @@
-# name: test/sql/anonymize.test
-# description: test anonymize extension
-# group: [anonymize]
+# name: test/sql/anonymize_email.test
+# description: test anonymize_email function
+# group: [sql]
 
 # Before we load the extension, this will fail
 statement error

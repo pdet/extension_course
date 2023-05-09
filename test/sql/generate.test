@@ -1,0 +1,54 @@
+# name: test/sql/generate.test
+# description: test generate function
+# group: [sql]
+
+require anonymize
+
+statement ok
+set anonymize_seed = 1
+
+statement error
+CALL generate_data();
+----
+generate_data(BIGINT)
+
+statement error
+CALL generate_data(-1);
+----
+Invalid Input Error: Number of Generated Entries must be > 0
+
+statement error
+CALL generate_data(NULL);
+----
+Invalid Input Error: Number of Generated Entries must be non-null
+
+query I
+CALL generate_data(10);
+----
+Laura Lopez
+Joseph Rodriguez
+Sophia Martinez
+Ava Garcia
+Sophia Smith
+John Johnson
+Joseph Davis
+Olivia Gonzalez
+Michael Martinez
+David Brown
+
+statement ok
+create table people as SELECT * FROM generate_data(10);
+
+query I
+SELECT * from people
+----
+Laura Lopez
+Joseph Rodriguez
+Sophia Martinez
+Ava Garcia
+Sophia Smith
+John Johnson
+Joseph Davis
+Olivia Gonzalez
+Michael Martinez
+David Brown

@@ -17,6 +17,7 @@ static void LoadInternal(DatabaseInstance &instance) {
   //! Register Anonymize Email Function
   auto &catalog = Catalog::GetSystemCatalog(*con.context);
   AnonymizeEmail::Register(catalog, *con.context);
+  GenerateData::Register(catalog, *con.context);
 
   //! Register Config to setup seed for testing
   auto &config = DBConfig::GetConfig(instance);
